@@ -7,8 +7,8 @@ formulario.addEventListener("submit", function(event) {
     const nombre = document.querySelector("#nombre").value;
     const correo = document.querySelector("#correo").value;
     const programa = document.querySelector("#programa").value;
-
     const estudiante = {
+        id: Date.now(),
         nombre,
         correo,
         programa
@@ -18,6 +18,7 @@ formulario.addEventListener("submit", function(event) {
     formulario.reset();
     console.log("Formulario enviado");
 })
+//funciones de la pagina
 
 function mostrarEstudiantes(lista = estudiantes) {
 
@@ -32,8 +33,20 @@ function mostrarEstudiantes(lista = estudiantes) {
                 <td>${estudiante.nombre}</td>
                 <td>${estudiante.correo}</td>
                 <td>${estudiante.programa}</td>
-                <td>Acciones</td>
+                <td>
+                    <button onclick="editarEstudiante(${estudiante.id})">Editar</button>
+                    <button onclick="eliminarEstudiante(${estudiante.id})">Eliminar</button>
+                </td>
             </tr>
         `;
     });
+}
+
+function eliminarEstudiante(id) {
+
+    estudiantes = estudiantes.filter(
+        estudiante => estudiante.id !== id
+    );
+
+    mostrarEstudiantes();
 }
