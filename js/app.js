@@ -1,4 +1,5 @@
-let estudiantes = [];
+let estudiantes =
+    JSON.parse(localStorage.getItem("estudiantes")) || [];
 let estudianteEditando = null;
 const formulario = document.querySelector("#formEstudiante");
 
@@ -28,7 +29,7 @@ formulario.addEventListener("submit", function(event) {
 
     estudianteEditando = null;
 }
-
+    guardarEstudiantes();
     mostrarEstudiantes();
     formulario.reset();
     console.log("Formulario enviado");
@@ -63,6 +64,7 @@ function eliminarEstudiante(id) {
         estudiante => estudiante.id !== id
     );
 
+    guardarEstudiantes();
     mostrarEstudiantes();
 }
 
@@ -94,3 +96,12 @@ buscador.addEventListener("input", function() {
 
     mostrarEstudiantes(resultado);
 });
+
+function guardarEstudiantes() {
+
+    localStorage.setItem(
+        "estudiantes",
+        JSON.stringify(estudiantes)
+    );
+}
+mostrarEstudiantes();
